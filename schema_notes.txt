@@ -1,0 +1,379 @@
+
+
+
+
+-- ---
+-- Globals
+-- ---
+
+-- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+-- SET FOREIGN_KEY_CHECKS=0;
+
+-- ---
+-- Table 'users'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `users`;
+    
+CREATE TABLE `users` (
+  `id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
+  `username` VARCHAR NULL DEFAULT NULL,
+  `joined_time` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'tweets'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `tweets`;
+    
+CREATE TABLE `tweets` (
+  `id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
+  `id_users` TINYINT NULL DEFAULT NULL,
+  `message` VARCHAR NULL DEFAULT NULL,
+  `posted_time` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'hashtags'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `hashtags`;
+    
+CREATE TABLE `hashtags` (
+  `id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
+  `label` VARCHAR NULL DEFAULT NULL,
+  `created_time` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'tweets_hashtags'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `tweets_hashtags`;
+    
+CREATE TABLE `tweets_hashtags` (
+  `id_tweets` TINYINT NULL DEFAULT NULL,
+  `id_hashtags` TINYINT NULL DEFAULT NULL,
+  PRIMARY KEY ()
+);
+
+-- ---
+-- Foreign Keys 
+-- ---
+
+ALTER TABLE `tweets` ADD FOREIGN KEY (id_users) REFERENCES `users` (`id`);
+ALTER TABLE `tweets_hashtags` ADD FOREIGN KEY (id_tweets) REFERENCES `tweets` (`id`);
+ALTER TABLE `tweets_hashtags` ADD FOREIGN KEY (id_hashtags) REFERENCES `hashtags` (`id`);
+
+-- ---
+-- Table Properties
+-- ---
+
+-- ALTER TABLE `users` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `tweets` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `hashtags` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `tweets_hashtags` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ---
+-- Test Data
+-- ---
+
+-- INSERT INTO `users` (`id`,`username`,`joined_time`) VALUES
+-- ('','','');
+-- INSERT INTO `tweets` (`id`,`id_users`,`message`,`posted_time`) VALUES
+-- ('','','','');
+-- INSERT INTO `hashtags` (`id`,`label`,`created_time`) VALUES
+-- ('','','');
+-- INSERT INTO `tweets_hashtags` (`id_tweets`,`id_hashtags`) VALUES
+-- ('','');
+
+
+
+
+
+
+
+-- ---
+-- Globals
+-- ---
+
+-- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+-- SET FOREIGN_KEY_CHECKS=0;
+
+-- ---
+-- Table 'borrowers'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `borrowers`;
+    
+CREATE TABLE `borrowers` (
+  `id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
+  `first_name` VARCHAR NULL DEFAULT NULL,
+  `last_name` VARCHAR NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'books'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `books`;
+    
+CREATE TABLE `books` (
+  `id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
+  `author_first` VARCHAR NULL DEFAULT NULL,
+  `author_last` VARCHAR NULL DEFAULT NULL,
+  `title` VARCHAR NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'borrowers_books'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `borrowers_books`;
+    
+CREATE TABLE `borrowers_books` (
+  `id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
+  `id_borrowers` TINYINT NULL DEFAULT NULL,
+  `id_books` TINYINT NULL DEFAULT NULL,
+  `date_borrowed` DATE NULL DEFAULT NULL,
+  `new field` TINYINT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Foreign Keys 
+-- ---
+
+ALTER TABLE `borrowers_books` ADD FOREIGN KEY (id_borrowers) REFERENCES `borrowers` (`id`);
+ALTER TABLE `borrowers_books` ADD FOREIGN KEY (id_books) REFERENCES `books` (`id`);
+
+-- ---
+-- Table Properties
+-- ---
+
+-- ALTER TABLE `borrowers` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `books` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `borrowers_books` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ---
+-- Test Data
+-- ---
+
+-- INSERT INTO `borrowers` (`id`,`first_name`,`last_name`) VALUES
+-- ('','','');
+-- INSERT INTO `books` (`id`,`author_first`,`author_last`,`title`) VALUES
+-- ('','','','');
+-- INSERT INTO `borrowers_books` (`id`,`id_borrowers`,`id_books`,`date_borrowed`,`new field`) VALUES
+-- ('','','','','');
+
+
+
+
+
+
+
+
+-- ---
+-- Globals
+-- ---
+
+-- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+-- SET FOREIGN_KEY_CHECKS=0;
+
+-- ---
+-- Table 'team'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `team`;
+    
+CREATE TABLE `team` (
+  `id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
+  `name` VARCHAR NULL DEFAULT NULL,
+  `city` VARCHAR NULL DEFAULT NULL,
+  `state` CHAR(2) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'game'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `game`;
+    
+CREATE TABLE `game` (
+  `id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
+  `home_team` TINYINT NULL DEFAULT NULL,
+  `other_team` TINYINT NULL DEFAULT NULL,
+  `home_team_score` TINYINT NULL DEFAULT NULL,
+  `other_team_score` TINYINT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'player'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `player`;
+    
+CREATE TABLE `player` (
+  `id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
+  `first_name` VARCHAR NULL DEFAULT NULL,
+  `last_name` VARCHAR NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'team_player'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `team_player`;
+    
+CREATE TABLE `team_player` (
+  `id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
+  `id_player` TINYINT NULL DEFAULT NULL,
+  `id_team` TINYINT NULL DEFAULT NULL,
+  `started_date` DATE NULL DEFAULT NULL,
+  `ended_date` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Foreign Keys 
+-- ---
+
+ALTER TABLE `game` ADD FOREIGN KEY (home_team) REFERENCES `team` (`id`);
+ALTER TABLE `game` ADD FOREIGN KEY (other_team) REFERENCES `team` (`id`);
+ALTER TABLE `team_player` ADD FOREIGN KEY (id_player) REFERENCES `player` (`id`);
+ALTER TABLE `team_player` ADD FOREIGN KEY (id_team) REFERENCES `team` (`id`);
+
+-- ---
+-- Table Properties
+-- ---
+
+-- ALTER TABLE `team` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `game` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `player` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `team_player` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ---
+-- Test Data
+-- ---
+
+-- INSERT INTO `team` (`id`,`name`,`city`,`state`) VALUES
+-- ('','','','');
+-- INSERT INTO `game` (`id`,`home_team`,`other_team`,`home_team_score`,`other_team_score`) VALUES
+-- ('','','','','');
+-- INSERT INTO `player` (`id`,`first_name`,`last_name`) VALUES
+-- ('','','');
+-- INSERT INTO `team_player` (`id`,`id_player`,`id_team`,`started_date`,`ended_date`) VALUES
+-- ('','','','','');
+
+
+
+
+
+-- ---
+-- Globals
+-- ---
+
+-- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+-- SET FOREIGN_KEY_CHECKS=0;
+
+-- ---
+-- Table 'individuals'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `individuals`;
+    
+CREATE TABLE `individuals` (
+  `id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'clans'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `clans`;
+    
+CREATE TABLE `clans` (
+  `id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'relationships'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `relationships`;
+    
+CREATE TABLE `relationships` (
+  `id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
+  `id_relationship_types` TINYINT NULL DEFAULT NULL,
+  `id_clans` TINYINT NULL DEFAULT NULL,
+  `id_individuals` TINYINT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'relationship_types'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `relationship_types`;
+    
+CREATE TABLE `relationship_types` (
+  `id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Foreign Keys 
+-- ---
+
+ALTER TABLE `relationships` ADD FOREIGN KEY (id_relationship_types) REFERENCES `relationship_types` (`id`);
+ALTER TABLE `relationships` ADD FOREIGN KEY (id_clans) REFERENCES `clans` (`id`);
+ALTER TABLE `relationships` ADD FOREIGN KEY (id_individuals) REFERENCES `individuals` (`id`);
+
+-- ---
+-- Table Properties
+-- ---
+
+-- ALTER TABLE `individuals` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `clans` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `relationships` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `relationship_types` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ---
+-- Test Data
+-- ---
+
+-- INSERT INTO `individuals` (`id`) VALUES
+-- ('');
+-- INSERT INTO `clans` (`id`) VALUES
+-- ('');
+-- INSERT INTO `relationships` (`id`,`id_relationship_types`,`id_clans`,`id_individuals`) VALUES
+-- ('','','','');
+-- INSERT INTO `relationship_types` (`id`) VALUES
+-- ('');
+
