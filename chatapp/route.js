@@ -1,11 +1,8 @@
-//helper library and functions for routing
+//helper library and functions for routing.
 var fileStream;
 var fs = require("fs");
 
 var pathLib = [
-  // path at index 0, content-type at 1. Append . when turning path into filepath,
-  // keep path the same for url routes (what to do with the data is managed in the
-  // findResource function.
   ['/vendor/jquery/jquery-1.9.1.js', 'text/javascript'],
   ['/css/reset.css', 'text/css'],
   ['/css/styles.css', 'text/css'],
@@ -27,7 +24,7 @@ exports.findResource = function (request, response) {
 };
 
 var respond = function (response, index) {
-  var fileStream = fs.readFile('.' + pathLib[index][0],
+  var fileStream = fs.readFile(__dirname + pathLib[index][0],
     function (err, data) {
       if (err) {
         response.writeHead(500);

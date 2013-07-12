@@ -40,11 +40,11 @@ exports.handleRequest = function(request, response) {
         response.write(JSON.stringify({'username': 'TempTest', 'createdAt': '111', 'message': 'This is a test!'}));
         response.end();
       } else if (request.url.slice(0,6) === "/index"){
-              debugger;
         headers['Content-Type'] = "text/html";
-        var fileStream = fs.readFile('index.html',
+        var fileStream = fs.readFile(__dirname +'/index.html',
           function (err, data) {
             if (err) {
+              console.log(err);
               response.writeHead(500);
               return response.end('Error loading index.html');
             }
