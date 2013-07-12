@@ -24,10 +24,10 @@ dbConnection.connect();
 dbConnection.end();
 
 /* CODE TO ESTABLISH WEB SERVER */
-var path = require('path');
+var path = require("path");
 var http = require("http");
-
-var handleRequest = require(path.normalize(_dirname + "/../chatapp/request.handler.js")).handleRequest;
+var handlerpath = path.normalize(__dirname + '/../chatapp/request-handler.js')
+var handleRequest = require(handlerpath).handleRequest;
 
 var port = 8080;
 

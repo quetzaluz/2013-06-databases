@@ -15,7 +15,6 @@ var pathLib = [
 exports.findResource = function (request, response) {
   var pathFound;
   for (var i = 0; i < pathLib.length; i++) {
-    console.log(request.url === pathLib[i][0]);
     if (request.url === pathLib[i][0]) {
       pathFound = true;
       respond(response, i);

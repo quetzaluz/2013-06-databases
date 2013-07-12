@@ -8,27 +8,9 @@ var defaultCorsHeaders = require('./cors.js');
 var fs = require("fs");
 var route = require('./route.js'); //helper library and functions for routing
 
-//Initializing chat log:
-//check to see if the log file exists, if not, create the storage obj and the log file.
-if (fs.existsSync('chatlog.text')) {
-  var storage = JSON.parse(fs.readFileSync('chatlog.text').toString());
-} else {
-  var storage = {'messages': []};
-}
-
-var saveLog = function() {
-  fs.writeFile('chatlog.text', JSON.stringify(storage), function (err) {
-    if (err) throw err;
-    console.log('Chat Log saved!');
-  });
-};
-
-var intervalID = setInterval (saveLog, 8000);
-
 exports.handleRequest = function(request, response) {
 
   console.log("Serving request type " + request.method + " for url " + request.url);
-
 
   var statusCode = 200;
 
@@ -48,8 +30,6 @@ exports.handleRequest = function(request, response) {
       });
       request.on('end', function () {
         var obj = JSON.parse(data);
-        if (!storage[request.url.substring(9, request.url.length)]) storage[request.url.substring(9, request.url.length)] = [];
-        storage[request.url.substring(9, request.url.length)].push(obj);
         response.end();
       });
       break;
@@ -57,10 +37,10 @@ exports.handleRequest = function(request, response) {
       if (request.url.slice(0,9) === "/classes/") {
         headers['Content-Type'] = 'application/json';
         response.writeHead(200, headers);
-        if (!storage[request.url.substring(9, request.url.length)]) storage[request.url.substring(9, request.url.length)] = [];
-        response.write(JSON.stringify(storage[request.url.substring(9, request.url.length)]));
+        response.write(JSON.stringify({'username': 'TempTest', 'createdAt': '111', 'message': 'This is a test!'}));
         response.end();
       } else if (request.url.slice(0,6) === "/index"){
+              debugger;
         headers['Content-Type'] = "text/html";
         var fileStream = fs.readFile('index.html',
           function (err, data) {
