@@ -67,7 +67,9 @@ var fetch = function (time) {
       //loading new messages. Later I will implement date parsing as
       //found in the 2013-06-chat-client repo, or a similar method.
       console.log(data);
-      makeMsg(data);
+      for (var i = 0; i < data.length; i++) {
+        makeMsg(data[i]);
+      }
     },
     error: function(data) {
       console.log('Ajax request failed');
@@ -104,7 +106,7 @@ var send = function (msgText) {
     contentType: 'application/json',
     type:"POST",
     url: "http://127.0.0.1:8080/classes/"+currentRoom,
-    data: JSON.stringify({message: msgText, username: usr, createdAt: Date.now(), objectId: "fake!"})
+    data: JSON.stringify({message: msgText, username: usr, createdAt: Date.now()})
   });
 };
 
