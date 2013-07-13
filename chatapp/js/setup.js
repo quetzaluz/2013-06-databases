@@ -66,9 +66,8 @@ var fetch = function (time) {
       //The following is a crude way of clearing the chat field and
       //loading new messages. Later I will implement date parsing as
       //found in the 2013-06-chat-client repo, or a similar method.
-      for (var i = 0; i < data.length; i++) {
-        makeMsg(data[i]);
-      }
+      console.log(data);
+      makeMsg(data);
     },
     error: function(data) {
       console.log('Ajax request failed');
@@ -77,7 +76,7 @@ var fetch = function (time) {
 };
 
 var makeMsg = function (data) {
-  if (data.objectId) {
+  if (data.id) {
     var $msg = $('<span class="msg"></span>');
     var $usr = $('<span class="usr"></span>');
     $msg.text(data.message);
