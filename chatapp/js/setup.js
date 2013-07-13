@@ -2,7 +2,6 @@ $(document).ready(function () {
   fetch(currentRoom);
   $('#usernameField').val(getUsername());
   msgIntervalID = setInterval(function () {
-    $('#viewMsgs').html('');
     fetch(currentRoom);
   }, 3000);
 
@@ -32,7 +31,6 @@ $(document).ready(function () {
   });
 
   $(document).delegate('.chatroom', 'click', function () {
-    console.log('clicked a room');
     $('.chatroom').each(function() {$(this).removeClass('currentRoom');});
     $(this).addClass('currentRoom');
     currentRoom = $(this).attr('id');
@@ -54,7 +52,7 @@ $(document).ready(function () {
 });
 
 //Bad global variables, obvious vulnerability in client.
-var lastTime;
+if (!lastTime) var lastTime = '0';
 var friendList = {};
 if (!currentRoom) var currentRoom = 'messages';
 
@@ -66,9 +64,10 @@ var fetch = function (time) {
       //The following is a crude way of clearing the chat field and
       //loading new messages. Later I will implement date parsing as
       //found in the 2013-06-chat-client repo, or a similar method.
-      console.log(data);
       for (var i = 0; i < data.length; i++) {
-        makeMsg(data[i]);
+        if (parseInt(data[i].createdAt) > parseInt(lastTime)) {
+          makeMsg(data[i]);
+        }
       }
     },
     error: function(data) {
@@ -90,7 +89,7 @@ var makeMsg = function (data) {
     }
     $usr.prependTo($msg);
     $msg.prependTo('#viewMsgs');
-    var lastTime = data.createdAt;
+    lastTime = data.createdAt;
   }
 };
 

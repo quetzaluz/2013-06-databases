@@ -34,3 +34,4 @@ console.log("Listening on http://" + ip + ":" + port);
 server.listen(port, ip);
 
 //exports.dbConnection.end();
+//TODO: Figure out best time to close connection -- still new to using SQL with java, used to python SQL libraries. 

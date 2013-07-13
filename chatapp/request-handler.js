@@ -25,12 +25,10 @@ exports.handleRequest = function(request, response) {
         data += chunk;
       });
       request.on('end', function () {
-        //incoming data {message: msgText, username: usr, createdAt: Date.now()}
         var obj = JSON.parse(data);
         var query = dbConnection.query('INSERT INTO messages SET ?', obj, function(err, result) {
           if (err) console.log(err);
         });
-        console.log(query.sql); 
         response.end();
       });
       break;
@@ -39,7 +37,6 @@ exports.handleRequest = function(request, response) {
         dbConnection.query('SELECT * FROM messages', function(err, rows, fields) {
           if (err) throw err;
           else {
-            console.log(rows);
             headers['Content-Type'] = 'application/json';
             response.writeHead(200, headers);
             response.write(JSON.stringify(rows));
